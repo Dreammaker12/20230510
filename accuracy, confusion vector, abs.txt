@@ -1,0 +1,81 @@
+#accuaracy
+predictions = [0, 1, 2, 3, 4]
+labels = [1, 1, 1, 0, 2]
+n_correct = 0
+
+for pred_idx in range(len(predictions)):
+    if predictions[pred_idx] == labels[pred_idx]:
+        n_correct += 1
+accuracy = n_correct/len(predictions)
+print("accuracy[%]:", accuracy*100, '%')
+#confusion vector
+predictions = [0, 1, 0, 2, 1, 2, 0]
+labels = [1, 1, 0, 0, 1, 2, 1]
+
+M_class = None
+for label in labels:
+    if M_class == None or label >M_class:
+        M_class = label
+M_class += 1
+
+class_cnts, correct_cnts, confusion_vec = list(), list(), list()
+for _ in range(M_class):
+    class_cnts.append(0)
+    correct_cnts.append(0)
+    confusion_vec.append(None)
+for pred_idx in range(len(predictions)):
+    pred = predictions[pred_idx]
+    label = labels[pred_idx]
+    
+    class_cnts[label] += 1
+    if pred == label:
+        correct_cnts[label] += 1
+for class_idx in range(M_class):
+    confusion_vec[class_idx] = correct_cnts[class_idx]/class_cnts[class_idx]
+print("confusion vector", confusion_vec)
+
+#Histogram 
+
+scores = [50, 20, 30, 40, 10, 50, 70, 80, 90, 20, 30]
+cutoffs = [0, 20, 40, 60, 80]
+histogram = [0, 0, 0, 0 ,0]
+
+for score in scores:
+    if score > cutoffs[4]:
+        histogram[4] += 1
+    elif score> cutoffs[3]:
+        histogram[3] += 1
+    elif score> cutoffs[2]:
+        histogram[2] += 1
+    elif score > cutoffs[1]:
+        histogram[1] += 1
+    elif score > cutoffs[0]:
+        histogram[0] += 1
+    else: 
+        pass
+print("histogram of the scores: ", histogram)
+
+#abs
+
+numbers = [-2, 2, -1, 3, -4, 9]
+abs_numbers = list()
+
+for num in numbers:
+    if num < 0:
+        abs_numbers.append(-num)
+    else:
+        abs_numbers.append(num)
+print(abs_numbers)
+
+#Manhattan distance
+v1 = [1, 3, 5, 2, 1, 5, 2]
+v2 = [2, 3, 1, 5, 2, 1, 3]
+
+m_distance = 0
+for dim_idx in range(len(v1)):
+    sub = v1[dim_idx]-v2[dim_idx]
+    if sub < 0:
+        m_distance += -sub
+    else:
+        m_distance += sub
+print("Manhattan distance: ", m_distance)
